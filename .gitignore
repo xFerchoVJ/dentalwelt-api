@@ -1,0 +1,9 @@
+node_modules/
+package-lock.json
+.vscode/
+.idea/
+*.iml
+.env          # Variables de entorno locales
+logs/         # Archivos de registro
+dist/         # Archivos compilados
+build/        # Archivos de construcción
