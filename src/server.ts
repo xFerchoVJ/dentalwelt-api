@@ -1,11 +1,12 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application, NextFunction, Request, Response } from "express";
 import { config } from "dotenv";
 config();
 
 const app: Application = express();
 
-app.get("/", (_, res: Response) => {
-  res.send("Hello world!, todo bien");
-});
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const error = new Error('Ruta no encontrada');
+  res.status(404).json({ error: error.message })
+})
 
 export default app;

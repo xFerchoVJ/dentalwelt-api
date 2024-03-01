@@ -4,7 +4,7 @@
   "description": "API para la página de Dental Welt",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npx tsc",
+    "build": "tsc",
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts"
   },

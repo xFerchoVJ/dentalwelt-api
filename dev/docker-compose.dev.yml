@@ -5,10 +5,10 @@ services:
     image: mysql:latest
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: dentalwelt_password
-      MYSQL_DATABASE: dentalwelt_db
-      MYSQL_USER: dentalwelt_user
-      MYSQL_PASSWORD: '123456'
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
@@ -19,7 +19,7 @@ services:
   app:
     build: 
       context: ../
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile.dev
     ports:
       - "3000:3000"
     depends_on: 
@@ -28,8 +28,7 @@ services:
       - ./.env  
     restart: always
     volumes:
-      - ../:/app
-      - /app/node_modules
+      - ../:/usr/src/app
 
 volumes:
   db_data:
