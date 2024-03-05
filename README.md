@@ -36,6 +36,17 @@ cd dentalwelt-api
 docker-compose -f dev/docker-compose.dev.yml up
 ```
 
+4.- Entrar al contenedor de la API
+
+```bash
+docker exec -it <id_contenedor> bash
+```
+5.- Correr las migraciones
+
+```bash
+npx prisma migrate dev
+```
+
 ## Estructura del Proyecto
 
 El proyecto sigue una estructura clara y organizada:
