@@ -5,7 +5,10 @@ config();
 
 const app: Application = express();
 
-
+//Middlewares
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+//Routes
 app.use('/api/users', userRouter);
 app.use((req: Request, res: Response, next: NextFunction) => {
   const error = new Error('Ruta no encontrada');
