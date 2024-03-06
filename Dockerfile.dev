@@ -1,17 +1,23 @@
 FROM node:lts
 
+# Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /usr/src/app
 
-COPY package*.json  .
+# Copiar el archivo package.json y el resto del código fuente
+COPY package.json ./
+COPY . ./
 
+# Instalar las dependencias
 RUN npm install
 
+# Copiar el directorio prisma
 COPY prisma ./prisma/
 
-COPY . .
-
+# Generar el cliente de Prisma
 RUN npx prisma generate
 
+# Exponer el puerto 3000
 EXPOSE 3000
 
+# Comando predeterminado para ejecutar la aplicación en modo de desarrollo
 CMD ["npm", "run", "dev"]
