@@ -4,6 +4,7 @@ package-lock.json
 .idea/
 *.iml
 .env
+dev/.env
 logs/         # Archivos de registro
 dist/         # Archivos compilados
 build/        # Archivos de construcción
