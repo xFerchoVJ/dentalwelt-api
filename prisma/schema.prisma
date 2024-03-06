@@ -10,9 +10,9 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      =  env("DATABASE_URL_DEV")
-  // // UNCOMMENT ON PROD
-  // url   =  env("DATABASE_URL_PROD")
+  // // UNCOMMENT ON DEV
+  // url      =  env("DATABASE_URL_DEV")
+  url   =  env("DATABASE_URL_PROD")
 }
 
 model User {
