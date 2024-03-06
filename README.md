@@ -40,7 +40,7 @@ datasource db {
 ```
 
 ```bash
-docker-compose -f dev/docker-compose.dev.yml up --build
+docker-compose -f dev/docker-compose.dev.yml up -d --build
 ```
 
 4.- Entrar al contenedor de la API
