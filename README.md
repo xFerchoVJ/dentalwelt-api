@@ -29,9 +29,16 @@ cd dentalwelt-api
 ```
 
 3. Ejecuta el siguiente comando para iniciar el proyecto en modo desarrollo:
+En el archivo schema.prisma comentar el DATABASE_URL_PROD y descomentar el DATABASE_URL_DEV
+datasource db {
+  provider = "mysql"
+  // // UNCOMMENT ON DEV
+  // url      =  env("DATABASE_URL_DEV")
+  url   =  env("DATABASE_URL_PROD")
+}
 
 ```bash
-docker-compose -f dev/docker-compose.dev.yml up
+docker-compose -f dev/docker-compose.dev.yml up --build
 ```
 
 4.- Entrar al contenedor de la API
