@@ -1,6 +1,4 @@
-**Nombre del Proyecto: API en Node.js con Express, Typescript y Docker**
-
-API DentalWelt
+**Nombre del Proyecto: API DentalWelt**
 
 ## Descripción
 
