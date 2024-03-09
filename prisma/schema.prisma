@@ -12,13 +12,23 @@ datasource db {
   provider = "mysql"
   // // UNCOMMENT ON DEV
   // url      =  env("DATABASE_URL_DEV")
-  url   =  env("DATABASE_URL_PROD")
+  url      = env("DATABASE_URL_PROD")
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  email String @unique
-  password String
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Promotion {
+  id         Int      @id @default(autoincrement())
+  title      String
+  archived   Boolean  @default(true)
+  secure_url String
+  public_id  String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
