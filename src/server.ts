@@ -2,7 +2,7 @@ import express, { Application, NextFunction, Request, Response } from "express";
 import { config } from "dotenv";
 import morgan from "morgan";
 import cors from "cors";
-import { authRoutes, userRoutes } from "./routes";
+import { authRoutes, promotionRoutes, userRoutes } from "./routes";
 
 config();
 
@@ -28,6 +28,7 @@ app.use(cors(corsOptions));
 // Rutas
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/promotions", promotionRoutes);
 
 // Middleware para manejar rutas no encontradas
 app.use((req: Request, res: Response, next: NextFunction) => {
