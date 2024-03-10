@@ -8,3 +8,4 @@ dev/.env
 logs/         # Archivos de registro
 dist/         # Archivos compilados
 build/        # Archivos de construcción
+storage/
