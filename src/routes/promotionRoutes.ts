@@ -3,6 +3,7 @@ import {
   createPromotion,
   deletePromotion,
   getPromotions,
+  updatePromotion,
 } from "../controllers/promotionController";
 import isAuthenticated from "../middlewares/authMiddleware";
 import fileUpload from "express-fileupload";
@@ -20,5 +21,14 @@ router.post(
 );
 
 router.delete("/:id", isAuthenticated, deletePromotion);
+router.put(
+  "/:id",
+  isAuthenticated,
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "./storage",
+  }),
+  updatePromotion
+);
 
 export default router;
