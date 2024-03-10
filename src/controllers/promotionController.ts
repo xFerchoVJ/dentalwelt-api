@@ -30,6 +30,16 @@ const createPromotion = async (req: Request, res: Response) => {
     return;
   }
   try {
+    const existsPromotion: PromotionInterface | null =
+      await prismadb.promotion.findFirst({
+        where: {
+          title,
+        },
+      });
+    if (existsPromotion) {
+      res.status(400).json({ error: "Ya existe la promoción" });
+      return;
+    }
     const tempFilePath = Array.isArray(req.files.image)
       ? req.files.image[0].tempFilePath
       : req.files.image.tempFilePath;
@@ -43,6 +53,52 @@ const createPromotion = async (req: Request, res: Response) => {
     });
     await fs.unlink(tempFilePath);
     res.json(promotion);
+  } catch (error) {
+    handleServerError(res, error);
+  }
+};
+
+const updatePromotion = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { title } = req.body;
+
+  try {
+    const existsPromotion: PromotionInterface | null =
+      await prismadb.promotion.findUnique({
+        where: {
+          id: parseInt(id),
+        },
+      });
+    if (!existsPromotion) {
+      res.status(404).json({ error: "No exisite la promoción." });
+      return;
+    }
+
+    let dataToUpdate: any = {};
+
+    if (title) {
+      dataToUpdate.title = title;
+    }
+
+    if (req.files?.image) {
+      await deleteImage(existsPromotion.public_id);
+      const tempFilePath = Array.isArray(req.files.image)
+        ? req.files.image[0].tempFilePath
+        : req.files.image.tempFilePath;
+      const result = await uploadImage(tempFilePath);
+      dataToUpdate.public_id = result.public_id;
+      dataToUpdate.secure_url = result.secure_url;
+    }
+
+    const updatedPromotion: PromotionInterface =
+      await prismadb.promotion.update({
+        where: {
+          id: existsPromotion.id,
+        },
+        data: dataToUpdate,
+      });
+
+    res.json({ msg: "Promoción Actualizada", updatedPromotion });
   } catch (error) {
     handleServerError(res, error);
   }
@@ -72,4 +128,5 @@ const deletePromotion = async (req: Request, res: Response) => {
     handleServerError(res, error);
   }
 };
-export { getPromotions, createPromotion, deletePromotion };
+
+export { getPromotions, createPromotion, deletePromotion, updatePromotion };
