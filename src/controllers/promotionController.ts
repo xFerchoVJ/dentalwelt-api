@@ -60,7 +60,7 @@ const createPromotion = async (req: Request, res: Response) => {
 
 const updatePromotion = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { title } = req.body;
+  const { title, archived } = req.body;
 
   try {
     const existsPromotion: PromotionInterface | null =
@@ -88,6 +88,10 @@ const updatePromotion = async (req: Request, res: Response) => {
       const result = await uploadImage(tempFilePath);
       dataToUpdate.public_id = result.public_id;
       dataToUpdate.secure_url = result.secure_url;
+    }
+
+    if (archived) {
+      dataToUpdate.archived = archived == "true" ? true : false;
     }
 
     const updatedPromotion: PromotionInterface =
@@ -129,4 +133,17 @@ const deletePromotion = async (req: Request, res: Response) => {
   }
 };
 
-export { getPromotions, createPromotion, deletePromotion, updatePromotion };
+const getPromotionsActive = async (req: Request, res: Response) => {
+  try {
+    const promotions: PromotionInterface[] = await prismadb.promotion.findMany({
+      where: {
+        archived: false,
+      },
+    });
+    res.json(promotions);
+  } catch (error) {
+    handleServerError(res, error);
+  }
+};
+
+export { getPromotions, createPromotion, deletePromotion, updatePromotion, getPromotionsActive };

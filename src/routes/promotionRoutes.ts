@@ -3,6 +3,7 @@ import {
   createPromotion,
   deletePromotion,
   getPromotions,
+  getPromotionsActive,
   updatePromotion,
 } from "../controllers/promotionController";
 import isAuthenticated from "../middlewares/authMiddleware";
@@ -10,6 +11,8 @@ import fileUpload from "express-fileupload";
 const router: Router = Router();
 
 router.get("/", getPromotions);
+router.get("/show", getPromotionsActive);
+
 router.post(
   "/",
   isAuthenticated,
